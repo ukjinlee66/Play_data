@@ -1,0 +1,9 @@
+SELECT e.ename , e.job , d.dname , e.sal , s.grade , ee.ename , dd.dname 
+FROM emp e ,dept d ,salgrade s , emp ee, dept dd
+WHERE (e.sal BETWEEN s.losal and s.hisal) AND 
+(e.deptno = d.deptno) AND
+(ee.deptno = dd.deptno) AND
+(e.mgr = ee.empno) AND
+(e.sal < 	(SELECT AVG(e3.sal) 
+			FROM emp e2, emp e3
+			WHERE (e2.ename = 'Martin') AND (e2.job = e3.job)));

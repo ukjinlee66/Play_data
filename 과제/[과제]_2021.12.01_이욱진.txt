@@ -1,0 +1,143 @@
+#. 과제 => [과제]_2021.12.01_홍길동.~~~
+
+#. [1] 어제 작성 해놓은 Table 설계도
+
+ - MyConn03.sql  :  부서번호로 부서위치를 변경 -> 예) 	IT --> Jeju
+package java1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class MyConn03
+{
+
+	public static void main(String[] args)
+	{
+		Connection conn = null;
+
+		String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+		String jdbcUrl = "jdbc:mysql://localhost:3306/empdb?serverTimezone=UTC";
+		String dbUser  = "root";
+		String dbPwd   = "1234";
+
+		String sqlSelect = "select * from dept10";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int iDeptno = 0; String sDname = null; //String sLoc = null;
+
+		Scanner sc = new Scanner(System.in);
+
+		iDeptno = sc.nextInt();
+		sDname = sc.next();
+
+		sc.close();
+		//String sqlInsert = "insert into dept10 values(?,?,?)";
+		String sqlInsert = "Update dept10 Set loc=? where deptno=?";
+		try {
+			Class.forName(jdbcDriver);
+
+			conn = DriverManager.getConnection(jdbcUrl,dbUser,dbPwd );
+
+			pstmt = conn.prepareStatement(sqlInsert);
+
+
+			pstmt.setInt(2, iDeptno);
+			pstmt.setString(1, sDname);
+			//pstmt.setString(3, sLoc);
+			pstmt.executeUpdate();
+			rs = pstmt.executeQuery(sqlSelect);
+
+			while(rs.next()) {
+				System.out.printf("%d | %-10s | %-10s %n",rs.getInt("deptno"),rs.getString(2),rs.getString("loc"));
+			}
+
+			System.out.println("Connection");
+			pstmt.close();
+			conn.close();
+		}
+		catch(SQLException e) {
+			System.out.printf("Exception: \r\n %s", e);
+		}
+		catch(ClassNotFoundException e) {
+			System.out.printf("Exception: \r\n %s", e);
+		}
+	}
+
+}
+
+ - MyConn04.sql  :  부서번호를 입력 -> 예)  해당 부서가 제거
+package java1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class MyConn04
+{
+
+	public static void main(String[] args)
+	{
+		Connection conn = null;
+
+		String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+		String jdbcUrl = "jdbc:mysql://localhost:3306/empdb?serverTimezone=UTC";
+		String dbUser  = "root";
+		String dbPwd   = "1234";
+
+		String sqlSelect = "select * from dept10";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int iDeptno = 0; String sDname = null;
+
+		Scanner sc = new Scanner(System.in);
+
+		iDeptno = sc.nextInt();
+
+		sc.close();
+		String sqlInsert = "delete from dept10 where deptno=?";
+		try {
+			Class.forName(jdbcDriver);
+
+			conn = DriverManager.getConnection(jdbcUrl,dbUser,dbPwd );
+
+			pstmt = conn.prepareStatement(sqlInsert);
+
+
+			pstmt.setInt(1, iDeptno);
+			pstmt.executeUpdate();
+			rs = pstmt.executeQuery(sqlSelect);
+
+			while(rs.next()) {
+				System.out.printf("%d | %-10s | %-10s %n",rs.getInt("deptno"),rs.getString(2),rs.getString("loc"));
+			}
+
+			System.out.println("Connection");
+			pstmt.close();
+			conn.close();
+		}
+		catch(SQLException e) {
+			System.out.printf("Exception: \r\n %s", e);
+		}
+		catch(ClassNotFoundException e) {
+			System.out.printf("Exception: \r\n %s", e);
+		}
+	}
+
+}
+
+#. [2] 조사 정리 제출 : DAO, DTO, VO
+- DAO (Data Access Object)
+    - DAO란 데이터베이스의 데이터에 접근하기위한 객체이며 데이터의 삭제,삽입,조회 등의 기능만 수행하도록 만든 오브젝트를 의미합니다.
+    - 즉 DB와 매번 연결하기위해서는 커넥션 객체가 필요로하며 이 커넥션객체 한개를 가지고 사용자의 접속이 끊어질때까지 모든 DB와 연결하는 객체를 의미합니다. 일반객체와는 다르게 반환을 하지 않기 때문에 커넥션 풀이 일어나지않습니다.
+- DTO (Data Transfer Object), VO(Value Object)
+    - DTO란 VO로 바꿔말할 수 있으며 계층간 데이터교환을 위한 자바빈즈를 말합니다. 각 계층 컨트롤러, 뷰, 비즈니스, 퍼시스턴스 계층간 데이터 교환을 위한 오브젝트이며 VO는 동일하지만 Read-Only 라는 차이점을 가지고 있습니다.
+
