@@ -1,0 +1,31 @@
+<script>
+    function CallBack01(z) {
+        for (var i = 0; i < 3; i++) {
+            z();
+        }
+    }
+
+    var a = function() {
+        alert("AAAA");
+    };
+    var b = function() {
+        alert("BBBB");
+    };
+    var c = function() {
+        alert("CCCC");
+    };
+
+    CallBack01(a);
+    CallBack01(b);
+    CallBack01(c);
+
+    function CallBack02(z, n) {
+        for (var i = 0; i < n; i++) {
+            z();
+        }
+    }
+
+    CallBack02(a, 2);
+    CallBack02(b, 4);
+    CallBack02(c, 5);
+</script>

@@ -1,0 +1,22 @@
+<script>
+    function func1(i, j) {
+        function pow(k) {
+            return (k * k);
+        }
+
+        function sum(a, b) {
+            return (a + b);
+        }
+
+        return sum(pow(i), pow(j));
+    }
+
+    function pow(k) {
+        return (k + 1000);
+    }
+
+    alert(func1(3, 4));
+    alert(func1(1, 7));
+    alert(func1(4, 8));
+    alert(pow(4));
+</script>

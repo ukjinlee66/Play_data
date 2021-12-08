@@ -1,0 +1,23 @@
+<script>
+	var a = ['사과', '바나나', '귤', '포도'];
+	alert(a);
+	alert(typeof(a));
+	alert(a[1]);
+
+	var book = {
+		title: '자바',
+		author: 'Tom',
+		price: 40000,
+		bPrint: function()
+		{
+			alert(this.title+','+this.author+','+this.price);
+		}
+	}
+
+	alert(book);
+	alert(typeof(book));
+	alert(book['author']);
+	alert(book.title);
+	book.bPrint();
+	book['bPrint']();
+</script>

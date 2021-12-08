@@ -1,0 +1,21 @@
+<script>
+	var book = { }
+		
+		book.title = "HTML";
+		book['author'] = 'Jane';
+		book.getTitle = function() { return this.title;}
+		book['getAuthor'] = function() { return this.author;}
+		book.pbook = function()
+		{
+			alert(this.title + ',' + this.author);
+		}
+	alert(typeof(book));
+
+	alert(book['title']);
+	alert(book.author);
+
+	alert(book.getTitle());
+	alert(book.getAuthor());
+
+	book.pbook();
+</script>

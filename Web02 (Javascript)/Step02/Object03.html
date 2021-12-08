@@ -1,0 +1,26 @@
+<script>
+	var dict = {
+		'사과': 'apple',
+		'바나나': 'banana',
+		'포도': 'grape',
+		'강': 'river',
+		'물': 'water',
+	}
+	dict.toString = function() 
+	{
+        var output = '';
+		// delete(dict.toString);
+		for (var k in this) 
+		{
+			if (k != 'toString')
+            	output += k + " : " + this[k] + '\n'
+        }
+
+        return output;
+        //return (this.사과 + this.바나나 + this.포도 + this.강 + this.물);
+    }
+
+	alert(typeof(dict));
+	alert(dict.toString());
+	alert(dict.toString());
+</script>
